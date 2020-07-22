@@ -23,9 +23,6 @@ jobs:
       - run:
           name: Scan the local image with trivy
           command: ./trivy --exit-code 0 --no-progress $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
-      - docker/publish:
-          image: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
-          tag: $CIRCLE_TAG,latest
       - slack/status:
           success_message: ':tada: build successful!!'
           failure_message: ':red_circle: build failed...'
@@ -44,3 +41,10 @@ workflows:
               only: /^v.*/
             branches:
               ignore: /.*/
+      - docker/publish:
+          image: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
+            filters:
+              tags:
+                only: /^v.*/
+              branches:
+                ignore: /.*/
