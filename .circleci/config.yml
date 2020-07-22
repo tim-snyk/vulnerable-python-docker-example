@@ -40,7 +40,11 @@ workflows:
   version: 2
   tagged-build:
     jobs:
-      - build-and-scan
+      - build-and-scan:
+          filters:
+            tags:
+              only: /.*/
+
       - docker/publish:
           requires:
             - build-and-scan
@@ -56,3 +60,6 @@ workflows:
           requires:
             - build-and-scan
             - docker/publish
+          filters:
+            tags:
+              only: /.*/
