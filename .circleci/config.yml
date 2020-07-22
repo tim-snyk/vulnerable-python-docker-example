@@ -40,17 +40,18 @@ workflows:
   version: 2
   tagged-build:
     jobs:
-      - build-and-scan:
-          filters:
-            tags:
-              only: /^v.*/
-            branches:
-              ignore: /.*/
+      - build-and-scan
       - docker/publish:
           requires:
             - build-and-scan
           image: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
           tag: $CIRCLE_TAG,latest
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
+
       - notify-slack:
           requires:
             - build-and-scan
