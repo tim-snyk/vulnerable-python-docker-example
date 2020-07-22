@@ -17,7 +17,8 @@ jobs:
             echo "Digest is: $(</tmp/digest.txt)"
 
   notify-slack:
-    executor: container
+    docker:
+      - image: circleci/python
     steps:
       - slack/status:
           success_message: ':tada: build successful!!'
