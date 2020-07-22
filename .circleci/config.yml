@@ -20,10 +20,9 @@ jobs:
 
             wget https://github.com/aquasecurity/trivy/releases/download/v${VERSION}/trivy_${VERSION}_Linux-64bit.tar.gz
             tar zxvf trivy_${VERSION}_Linux-64bit.tar.gz
-            mv trivy /usr/local/bin
       - run:
           name: Scan the local image with trivy
-          command: trivy --exit-code 0 --no-progress $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
+          command: ./trivy --exit-code 0 --no-progress $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
       - docker/push:
           digest-path: /tmp/digest.txt
           image: otajisan/vulnerable-python-docker-example
