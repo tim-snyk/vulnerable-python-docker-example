@@ -37,9 +37,10 @@ orbs:
   slack: circleci/slack@3.4.2
 
 workflows:
+  version: 2
   tagged-build:
     jobs:
-      - build-and-push:
+      - build-and-scan:
           filters:
             tags:
               only: /^v.*/
@@ -47,9 +48,10 @@ workflows:
               ignore: /.*/
       - docker/publish:
           requires:
-            - build-and-push
+            - build-and-scan
           image: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
           tag: $CIRCLE_TAG,latest
       - notify-slack:
           requires:
+            - build-and-scan
             - docker/publish
