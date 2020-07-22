@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  flask-app-with-vuln:
+    build: .
+    container_name: flask-app-with-vuln
+    ports:
+      - '5000:5000'
