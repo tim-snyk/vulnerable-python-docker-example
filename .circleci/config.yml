@@ -43,8 +43,8 @@ workflows:
               ignore: /.*/
       - docker/publish:
           image: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
-            filters:
-              tags:
-                only: /^v.*/
-              branches:
-                ignore: /.*/
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
